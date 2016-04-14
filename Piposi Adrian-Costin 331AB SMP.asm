@@ -487,6 +487,137 @@ g8s: mov ah, 0ch
     dec dx 
     cmp dx, 105
     jae g8s 
+
+
+start:
+
+        ;citire de la tastatura
+LEA     SI, msg3
+CALL    print_string
+                
+PUTC    13 ; linie noua
+PUTC    10
+                
+LEA     SI, msg4
+CALL    print_string
+
+CALL    scan_num                        
+        ; verificare alegere
+cmp cx,1
+je sosea
+
+jmp sfarsit 
+         
+         
+;SOSEA         
+    
+    ; etapa desenare sosea
+sosea:     
+    
+    ;afisare linie oblica sosea stanga
+    mov cx, 190
+    mov dx, 200
+    mov al, 15 
+    
+s1:    
+    
+    mov al,7
+    mov ah, 0eh
+    int 10h
+    
+    mov ah, 0ch
+    int 10h
+    dec dx
+    inc cx               
+    cmp cx, 320
+    jb s1       
+    
+    ;afisare linie oblica sosea mijloc 
+    mov cx, 205
+    mov dx, 200
+    mov al, 15  
+           
+s2:  
+
+    mov al,7
+    mov ah, 0eh
+    int 10h
+
+    mov ah, 0ch
+    int 10h
+    dec dx
+    inc cx      
+    cmp cx, 230
+    jb s2  
+    
+    mov cx, 250
+    mov dx, 155
+    mov al, 15
+             
+s3:   
+
+    mov al,7
+    mov ah, 0eh
+    int 10h
+
+    mov ah, 0ch
+    int 10h
+    dec dx
+    inc cx
+    cmp cx, 275
+    jb s3 
+    
+    mov cx, 300
+    mov dx, 105
+    mov al, 15  
+           
+s4: 
+    
+    mov al,7
+    mov ah, 0eh
+    int 10h
+    
+    mov ah, 0ch
+    int 10h
+    dec dx
+    inc cx
+    cmp cx, 320
+    jb s4 
+    
+    ;afisare linie oblica sosea drapta
+    mov cx, 220
+    mov dx, 200
+    mov al, 15  
+           
+s5: 
+    
+    mov al,7
+    mov ah, 0eh
+    int 10h
+    
+    mov ah, 0ch
+    int 10h
+    dec dx
+    inc cx
+    cmp cx, 320
+    jb s5  
+
+;END SOSEA 
+
+jmp sfarsit 
+               
+             
+      
+ sfarsit:
+           
+    mov AH,2
+    mov DH,0
+    mov DL,0
+    INT 10h
+         
+    mov ah,00
+    int 16h
+ jmp start                
     
            
 ;Nr de convertit se introduce in AX.
@@ -517,9 +648,13 @@ cycle2:
 endp 
 
 
-                                             
+                                                  
 msg1     DB      'FACTORIAL: introduceti operand: ', 0        ; msg afisat pe ecran
 msg2     DB      'Rezultat: ', 0                              ; msg afisat pe ecran  
+msg3     DB      'Introduceti 1 si ENTER: ', 0                ; msg afisat pe ecran
+msg4     DB      'Desenare: 1-sosea                ' , 0      ; msg afisat pe ecran 
+ 
+ 
  
  
                                                                            
