@@ -24,7 +24,7 @@ mov op,cx
 
 
          
-;factorial
+;calcu factorial
 factorial:
 mov ax,op
 mul rez ;rezultat
@@ -53,7 +53,6 @@ mov  dx, offset str
 int  21h
     
    
-
         
 ;BLOC    
                      
@@ -165,7 +164,7 @@ b9: mov ah, 0ch
     mov dx, 91
     mov al, 15 
     
-b10: mov ah, 0ch
+b10:mov ah, 0ch
     int 10h
     dec cx 
     dec cx
@@ -487,7 +486,8 @@ g8s: mov ah, 0ch
     dec dx 
     cmp dx, 105
     jae g8s 
-    
+
+;END BLOC    
 
 jmp sfarsit      
 
@@ -512,10 +512,10 @@ je parcare
 
 jmp sfarsit 
 
-        ; etapa desenare sosea
-sosea:   
 
-;SOSEA  
+;SOSEA 
+        ; etapa desenare sosea
+sosea:    
     
     ;afisare linie oblica sosea stanga
     mov cx, 190
@@ -608,12 +608,12 @@ s5:
 ;END SOSEA 
 
 jmp sfarsit                
-         
+
+
+;PARCARE         
            ;etapa desenare parcare   
             
 parcare:
-  
-;PARCARE
     
     ;afisare linie oblica parcare stanga
     mov cx, 170
@@ -705,6 +705,7 @@ parcare_8: mov ah, 0ch
                           
 jmp sfarsit                
              
+  
       
  sfarsit:
            
