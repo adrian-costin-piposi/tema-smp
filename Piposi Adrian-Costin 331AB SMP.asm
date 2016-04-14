@@ -6,7 +6,7 @@ str db 6 dup('$') ;rezultat zecimal
 
 jmp code
 
-w equ 50 ;dimensiune dreptunghi
+w equ 50 ;w ia valoarea 50 
 h equ 80
 
 code:
@@ -24,7 +24,8 @@ mov op,cx
 
 
          
-;calcu factorial
+;calcul factorial
+
 factorial:
 mov ax,op
 mul rez ;rezultat
@@ -42,11 +43,11 @@ mov  ax,rez
 call number2string
 
 
-PUTC 13
+PUTC 13 ;linie noua
 PUTC 10
 
-LEA     SI, msg2
-CALL    print_string
+LEA     SI, msg2    ;aducere mesaj
+CALL    print_string    ;apelare functie de tiparire
 
 mov  ah, 9
 mov  dx, offset str
@@ -56,9 +57,9 @@ int  21h
         
 ;BLOC    
                      
-    ; afisare latura superioara
-    mov cx, 100+w  ; coloana
-    mov dx, 100
+    ;afisare latura superioara
+    mov cx, 100+w  ;coloana
+    mov dx, 100    ;linia
     mov al, 15
     
 b1: mov ah, 0ch
@@ -67,7 +68,7 @@ b1: mov ah, 0ch
     cmp cx, 100
     jae b1    
     
-    ; afisare latura inferioara
+    ;afisare latura inferioara
     mov cx, 100+w
     mov dx, 100+h
     mov al, 15 
@@ -78,7 +79,7 @@ b2: mov ah, 0ch
     cmp cx, 100
     ja b2
     
-    ; latura din stanga
+    ;latura din stanga
     mov cx, 100
     mov dx, 100+h
     mov al, 15 
@@ -89,7 +90,7 @@ b3: mov ah, 0ch
     cmp dx, 100
     ja b3
     
-    ; latura din dreapta
+    ;latura din dreapta
     mov cx, 100+w
     mov dx, 100+h
     mov al, 15  
@@ -489,7 +490,7 @@ g8s: mov ah, 0ch
 
 ;END BLOC    
 
-jmp sfarsit      
+jmp sfarsit ;salt catre functie sfarsit       
 
 start:
 
@@ -504,17 +505,17 @@ LEA     SI, msg4
 CALL    print_string
 
 CALL    scan_num                        
-        ; verificare alegere
-cmp cx,1
-je sosea
-cmp cx,2
+          ; verificare alegere
+cmp cx,1  ;comparare valoare cu 1
+je sosea  ;salt la functia sosea
+cmp cx,2  ;comparare valoare cu 2
 je parcare 
 
 jmp sfarsit 
 
 
 ;SOSEA 
-        ; etapa desenare sosea
+        ;etapa desenare sosea
 sosea:    
     
     ;afisare linie oblica sosea stanga
@@ -611,7 +612,7 @@ jmp sfarsit
 
 
 ;PARCARE         
-           ;etapa desenare parcare   
+           ;etapa/functie desenare parcare   
             
 parcare:
     
@@ -708,7 +709,9 @@ jmp sfarsit
   
       
  sfarsit:
-           
+    
+        ;setare pozitie cursor la pozitiile DH si DL      
+    
     mov AH,2
     mov DH,0
     mov DL,0
@@ -716,7 +719,8 @@ jmp sfarsit
          
     mov ah,00
     int 16h
- jmp start   
+ 
+jmp start   
               
               
               
@@ -734,7 +738,7 @@ cycle1:
   inc  cx ;Incrementare contor pentru fiecare cifra extrasa
   cmp  ax, 0  
   jne  cycle1 ;Daca e diferit de 0 => LOOP 
-
+         
 ;Preulare rezultat
   mov  si, offset str
 cycle2:  
