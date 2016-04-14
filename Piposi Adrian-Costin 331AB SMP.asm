@@ -487,7 +487,9 @@ g8s: mov ah, 0ch
     dec dx 
     cmp dx, 105
     jae g8s 
+    
 
+jmp sfarsit      
 
 start:
 
@@ -505,14 +507,15 @@ CALL    scan_num
         ; verificare alegere
 cmp cx,1
 je sosea
+cmp cx,2
+je parcare 
 
 jmp sfarsit 
-         
-         
-;SOSEA         
-    
-    ; etapa desenare sosea
-sosea:     
+
+        ; etapa desenare sosea
+sosea:   
+
+;SOSEA  
     
     ;afisare linie oblica sosea stanga
     mov cx, 190
@@ -604,8 +607,103 @@ s5:
 
 ;END SOSEA 
 
-jmp sfarsit 
-               
+jmp sfarsit                
+         
+           ;etapa desenare parcare   
+            
+parcare:
+  
+;PARCARE
+    
+    ;afisare linie oblica parcare stanga
+    mov cx, 170
+    mov dx, 180
+    mov al, 15  
+           
+parcare_1: mov ah, 0ch
+    int 10h
+    dec dx
+    inc cx
+    cmp cx, 190
+    jb parcare_1      
+    
+    ;afisare linie oblica parcare dreapta
+    mov cx, 280
+    mov dx, 180
+    mov al, 15 
+            
+parcare_2: mov ah, 0ch
+    int 10h
+    dec dx
+    inc cx
+    cmp cx, 300
+    jb parcare_2
+    
+    ;afisare linie latura sus
+    mov cx, 300
+    mov dx, 160
+    mov al, 15
+parcare_3: mov ah, 0ch
+    int 10h
+    dec cx 
+    cmp cx, 260
+    jae parcare_3 
+    
+    mov cx, 230
+    mov dx, 160
+    mov al, 15 
+    
+parcare_4: mov ah, 0ch
+    int 10h
+    dec cx 
+    cmp cx, 190
+    jae parcare_4   
+    
+    ;afisare linie latura mijloc
+    mov cx, 290
+    mov dx, 170
+    mov al, 15 
+    
+parcare_5: mov ah, 0ch
+    int 10h
+    dec cx 
+    cmp cx, 250
+    jae parcare_5  
+    
+    mov cx, 220
+    mov dx, 170
+    mov al, 15   
+    
+parcare_6: mov ah, 0ch
+    int 10h
+    dec cx 
+    cmp cx, 180
+    jae parcare_6 
+    
+    ;afisare linie latura jos
+    mov cx, 280
+    mov dx, 180
+    mov al, 15  
+    
+parcare_7: mov ah, 0ch
+    int 10h
+    dec cx 
+    cmp cx, 240
+    jae parcare_7   
+    
+    mov cx, 210
+    mov dx, 180
+    mov al, 15
+    
+parcare_8: mov ah, 0ch
+    int 10h
+    dec cx 
+    cmp cx, 170
+    jae parcare_8   
+        
+;END PARCARE
+                          
+jmp sfarsit                
              
       
  sfarsit:
@@ -617,9 +715,10 @@ jmp sfarsit
          
     mov ah,00
     int 16h
- jmp start                
-    
-           
+ jmp start   
+              
+              
+              
 ;Nr de convertit se introduce in AX.
 ;ALGORITM : Se extrag cifrele una cate una si se introduc in stiva.
 ;Apoi se extrag invers pentru a crea string-ul.
@@ -648,13 +747,11 @@ cycle2:
 endp 
 
 
-                                                  
+                                             
 msg1     DB      'FACTORIAL: introduceti operand: ', 0        ; msg afisat pe ecran
-msg2     DB      'Rezultat: ', 0                              ; msg afisat pe ecran  
-msg3     DB      'Introduceti 1 si ENTER: ', 0                ; msg afisat pe ecran
-msg4     DB      'Desenare: 1-sosea                ' , 0      ; msg afisat pe ecran 
- 
- 
+msg2     DB      'Rezultat: ', 0                              ; msg afisat pe ecran   
+msg3     DB      'Desenare: 1-sosea, 2-parcare     ' , 0      ; msg afisat pe ecran  
+msg4     DB      'Introduceti 1 sau 2 si ENTER: ', 0          ; msg afisat pe ecran
  
  
                                                                            
